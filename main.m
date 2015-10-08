@@ -1,12 +1,11 @@
-clc;
-clear all;
+clc; close all;
+r     = [0; 100; 0];
+v     = [0;   0; 0];
+omega = deg2rad([0; 0; 0]);
+phi   = deg2rad([0; 0; 0]);
 
-y = zeros(3,1);
-y(1) = 5;
-y(2) = deg2rad(5);
-y(3) = 5;
 
-[T,Y] = ode45(@Model, [0:0.1:10], y);
+[T,Y] = ode45(@Model, [0:0.1:10], [r; v; omega; phi]);
 
 figure % new figure
 ax1 = subplot(3,1,1); % top subplot
