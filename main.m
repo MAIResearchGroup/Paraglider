@@ -1,13 +1,8 @@
 clc; close all;
 %% Рабочие каталоги
-%  Профили крыла
-PROFILES = '\Profiles';
-PFolder = strcat(pwd, PROFILES);
-addpath(PFolder);
-%  Интерполяция
-INTERPOLATION = '\Interpolation\Matlab2014b';
-PFolder =  strcat(cd(cd('..\')), INTERPOLATION);
-addpath(PFolder);
+PROFILES = strcat(pwd, '\Profiles');
+INCLUDES = strcat(pwd, '\Includes');
+addpath(PROFILES, INCLUDES);
 
 %%  Интегрирования
 %   Исходные данные

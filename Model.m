@@ -1,6 +1,6 @@
 function dy = Model(t, x)
     %% Начальные параметры
-        r     = x(1:3);     % положение
+%        r     = x(1:3);     % положение
         v     = x(4:6);     % скорость
         omega = x(7:9);     % угловые скорости
         ean   = x(10:12);   % Углы Эйлера
@@ -52,7 +52,7 @@ function dy = Model(t, x)
     %% Гравитационная сила и момент
         MGPoint = [0; 0; 0];             % Центр масс
         TM = mass1 + mass2;              % Общая масса
-        FG = inv(Rub)*[0; 0; 1]*g*(TM);  % Сила тяжести
+        FG = Rub\[0; 0; 1]*g*(TM);  % Сила тяжести
         MG = cross(MGPoint, FG);         % Момент силы тяжести
     
     %% Коэфициент вращения для куба
@@ -72,7 +72,7 @@ function dy = Model(t, x)
 %                                 % ясно зачем он нужен
         Cd = profile(4);        % Коэф. Центра давления
         
-        MAPoint = [0.1; 2; 0];  % Точка приложения АДС  
+%        MAPoint = [0.1; 2; 0];  % Точка приложения АДС  
 
 %         X       = [-1; 0; 0] * Cx * ro * (Vw^2 / 2) *S; % Тормозящая сила
 %         Y       = [0;  1; 0] * Cy * ro * (Vw^2 / 2) *S; % Подъемная  сила
@@ -91,13 +91,13 @@ function dy = Model(t, x)
     %% Сумма сил и моментов
         F = FG + FP + FA;
         M = MG + MP + MA;
-        V = ((v(1)^2+v(2)^2)^2+v(3)^2); 
+%        V = ((v(1)^2+v(2)^2)^2+v(3)^2); 
        
     %%  Интегрирование
         dr_dt     = Rub*v;
         dv_dt     = cross(omega, v) + (F/TM);
         dean_dt   = Rea*ean;
-        domega_dt = inv(J)*M - inv(J)*cross(omega, J*omega);
+        domega_dt = J\M - J\cross(omega, J*omega);
     
 %         dTET_dt   = (P*(sin(angle))+ Y(2) -FG(2)*cos(TET))/((mass1+mass2)*V);
 
