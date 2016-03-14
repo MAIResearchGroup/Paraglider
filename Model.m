@@ -102,6 +102,6 @@ function dy = Model(t, x)
 %         dTET_dt   = (P*(sin(angle))+ Y(2) -FG(2)*cos(TET))/((mass1+mass2)*V);
 
 %         dH_dt = dv_dt;
-        t
+
         dy = [dr_dt; dv_dt; domega_dt; dean_dt];
 end

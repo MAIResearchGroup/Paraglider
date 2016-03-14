@@ -1,10 +1,13 @@
 clc; close all;
 %% Рабочие каталоги
+%  Профили крыла
 PROFILES = '\Profiles';
-
 PFolder = strcat(pwd, PROFILES);
-
-addpath(PFolder)
+addpath(PFolder);
+%  Интерполяция
+INTERPOLATION = '\Interpolation\Matlab2014b';
+PFolder =  strcat(cd(cd('..\')), INTERPOLATION);
+addpath(PFolder);
 
 %%  Интегрирования
 %   Исходные данные
@@ -20,7 +23,7 @@ addpath(PFolder)
 %TET   = deg2rad(0); % Угол
 
 %   Интегрирование
-    ITime = 600; % Время интегрирования, с
+    ITime = 6; % Время интегрирования, с
     IStep = 0.1; % Шаг интегрирования
     [T,Y] = ode45(@Model, 0:IStep:ITime, [r; v; omega; ean]);
 

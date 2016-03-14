@@ -9,12 +9,12 @@ function res = WFInterp(pa, pcy, pcx, pcm, pcd, angle, height, temp)
     Tempre= [288.2; 284.9; 281.7; 278.4; 275.2; 271.9; 268.7; 262.2; 255.7; 249.2; 242.7; 236.2; 229.7; 223.3; 216.7; 216.7; 216.7; 216.7; 216.7; 216.7; 220.6; 224.5; 228.5; 239.3];
 
 
-    Cy_  = interp1(palpha, pCy,  angle);
-    Cx_  = interp1(palpha, pCx,  angle);
-    CmA_ = interp1(palpha, pCmA, angle);
-    Cd_  = interp1(palpha, pCd,  angle);
+    Cy_  = LinearInterp(palpha, pCy,  angle);
+    Cx_  = LinearInterp(palpha, pCx,  angle);
+    CmA_ = LinearInterp(palpha, pCmA, angle);
+    Cd_  = LinearInterp(palpha, pCd,  angle);
     
-    pT   = interp1(Height, Tempre, height);
+    pT   = LinearInterp(Height, Tempre, height);
 
     res = [Cy_; Cx_; CmA_; Cd_; pT];
 
