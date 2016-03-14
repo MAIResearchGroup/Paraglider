@@ -1,5 +1,5 @@
 function res = ClarkYH(angle)
-    clc; close all;
+%     clc; close all;
     %% Массивы данных
     %  Угол атаки, град
     palpha = [-20;    -16;    -12;    -8;     -4;     -2;      0;      2;      4;      8;      10;     12;     16;     18;     20;    22;     24];
@@ -16,38 +16,41 @@ function res = ClarkYH(angle)
     % Задается в ручную
     H = 2000.0;    % высота, м 
     T = 275.2;     % температура, К 
-
-    function test()
-    AngleOfAttackLimit = -20:0.01:24; % пределы на угол атаки
-
-    %% Запуск интерполяции
-    i = 1;
-    for a = AngleOfAttackLimit
-        ret = WFInterp(palpha, pCy, pCx, pCmA, pCd, a, H, T);
-        Cy(i)  = ret(1);
-        Cx(i)  = ret(2);
-        CmA(i) = ret(3);
-        Cd(i)  = ret(4);
-        T(i)   = ret(5);
-        i = i+1;
-    end
-    %% Графики
-    figure(1)
-    plot(AngleOfAttackLimit, Cy,...
-         AngleOfAttackLimit, Cx,...
-         AngleOfAttackLimit, CmA,...
-         AngleOfAttackLimit, Cd);
-    grid on
-    title('Графики атмосферных коэфициентов');
-    legend('Cy','Cx','CmA','Cd');
-    end
+%%    Куча мусора
+%     function test()
+%     AngleOfAttackLimit = -20:0.01:24; % пределы на угол атаки
+% 
+%     %% Запуск интерполяции
+%     i = 1;
+%     for a = AngleOfAttackLimit
+%         ret = WFInterp(palpha, pCy, pCx, pCmA, pCd, a, H, T);
+%         Cy(i)  = ret(1);
+%         Cx(i)  = ret(2);
+%         CmA(i) = ret(3);
+%         Cd(i)  = ret(4);
+%         T(i)   = ret(5);
+%         i = i+1;
+%     end
+    % Графики
+%     figure(1)
+%     plot(AngleOfAttackLimit, Cy,...
+%          AngleOfAttackLimit, Cx,...
+%          AngleOfAttackLimit, CmA,...
+%          AngleOfAttackLimit, Cd);
+%     grid on
+%     title('Графики атмосферных коэфициентов');
+%     legend('Cy','Cx','CmA','Cd');
+%     end
     %test()
     
-    ret = WFInterp(palpha, pCy, pCx, pCmA, pCd, angle, H, T);
-    Cy  = ret(1);
-    Cx  = ret(2);
-    CmA = ret(3);
-    Cd  = ret(4);
-    
-    res = [Cy, Cx, CmA, Cd];
+%     ret = WFInterp(palpha, pCy, pCx, pCmA, pCd, angle, H, T);
+%     Cy  = ret(1);
+%     Cx  = ret(2);
+%     CmA = ret(3);
+%     Cd  = ret(4);
+%%    Вывод результатов    
+    res = [LinearInterp(palpha, pCy,  angle);...
+           LinearInterp(palpha, pCx,  angle);...
+           LinearInterp(palpha, pCmA, angle);...
+           LinearInterp(palpha, pCd,  angle)];
 end
