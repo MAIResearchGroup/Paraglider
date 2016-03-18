@@ -11,6 +11,7 @@ addpath(PROFILES, INCLUDES);
     LiftForce = E.Wind.Pressure * P.Wing.S * P.Wing.Cy;
     X = E.Wind.Pressure * P.Wing.S * P.Wing.Cx;
 
-%%  Интегрирование
-    Time = 0:1;
-    [T,Y] = ode45(@Model, Time, P, E);
+% Почему не достаточно аргументов?!
+% %%  Интегрирование
+%     Time = 0:1;
+%     [T,Y] = ode45(@Model, Time, P, E);
