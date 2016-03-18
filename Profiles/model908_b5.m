@@ -1,11 +1,12 @@
 %% Модель 908 с углом бетта = 5
-function res = model908_b5(angle)
+function [rCy, rCx, rCmA, rCd] = model908_b5(angle)
     %% Массивы данных (по графикам)
     palpha = [-4.5;   -2.5;   -0.5;    1.5;    4;      5.5;    7.5;    9.5;    11.5;   5.5;    13.5;   15.5;   19.5;   21.5;   23.5;   25.5;   27.5;    29.5;    31.5;    33.5;    35.5;    37.5;    39.5;    41.5;    43.5];
     pCy    = [-0.036;  0.034;  0.109;  0.178;  0.249;  0.309;  0.361;  0.415;  0.46;   0.488;  0.507;  0.534;  0.569;  0.605;  0.64;   0.68;   0.724;   0.767;   0.815;   0.86;    0.9;     0.94;    0.97;    1.05;    1.03];
     pCx    = [ 0.032;  0.033;  0.035;  0.040;  0.048;  0.059;  0.075;  0.094;  0.114;  0.138;  0.163;  0.192;  0.220;  0.250;  0.281;  0.316;  0.359;   0.401;   0.450;   0.501;   0.553;   0.607;   0.658;   0.711;   0.763];
  
-    res = [LinearInterp(palpha, pCy,  angle);...
-           LinearInterp(palpha, pCx,  angle);...
-           LinearInterp(palpha, pCmA, angle)];
+    rCy  = LinearInterp(palpha, pCy,  angle);
+    rCx  = LinearInterp(palpha, pCx,  angle);
+    rCmA = LinearInterp(palpha, pCmA, angle);
+    rCd  = inf;
 end
