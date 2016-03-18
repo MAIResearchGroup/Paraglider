@@ -1,14 +1,12 @@
 function [ res ] = LinearInterp( arguments, functionValues, value )
     len = numel(arguments);
-    first = arguments(1);
-    last  = arguments(end);
 
-    if value <= first
+    if value <= arguments(1)
         res = functionValues(1);
         return
     end
     
-    if value >= last
+    if value >= arguments(end)
         res = functionValues(end);
         return
     end
