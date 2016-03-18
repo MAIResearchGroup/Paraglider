@@ -15,7 +15,7 @@ function [ res ] = LinearInterp( arguments, functionValues, value )
     koeff(2) = 1;
 
     for i = 2:len
-        if value >= arguments(i-1) 
+        if value >= arguments(i-1) && value <= arguments(i)
             koeff(1) = (functionValues(i) - functionValues(i-1)) / (arguments(i) - arguments(i-1));
             koeff(2) = functionValues(i-1) - koeff(1)*arguments(i-1);
             break

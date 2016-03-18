@@ -5,13 +5,10 @@ INCLUDES = strcat(pwd, '\Includes');
 addpath(PROFILES, INCLUDES);
 
 %%  Исходные данные    
-    [E,P] = SetUp();    % P значит Paraglider, 
-                        % E - Environment
-
-    LiftForce = E.Wind.Pressure * P.Wing.S * P.Wing.Cy;
-    X = E.Wind.Pressure * P.Wing.S * P.Wing.Cx;
-
-% Почему не достаточно аргументов?!
-% %%  Интегрирование
-%     Time = 0:1;
-%     [T,Y] = ode45(@Model, Time, P, E);
+    P = SetUp();    % P значит Paraglider
+    dynFunc = @(t,X)Model(t,X,P);
+                        
+%%  Интегрирование
+    TimeSpan = 0:1;
+    res = ode45(dynFunc, TimeSpan, P.InitCond);
+    plot(res.y(3,:), res.y(4,:))

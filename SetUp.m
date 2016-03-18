@@ -1,9 +1,9 @@
-function [E,P] = SetUp()
+function P = SetUp()
 %% ќкружение
     ro = 1.225;                         % ѕлотность воздуха  
     g  = 9.81;                          % ”скорение свободного падени€
-    E.Wind.Speed    = 5.0;              % —корость набегающего потока
-    E.Wind.Pressure = (ro*E.Wind.Speed^2)/2;
+    P.Env.Wind.Speed    = 8.0;              % —корость набегающего потока
+    P.Env.Wind.Pressure = (ro*P.Env.Wind.Speed^2)/2;
 
 %% јппарат
     P.mass = 1;                         % масса груза, кг
@@ -40,5 +40,17 @@ function [E,P] = SetUp()
     P.ean   = deg2rad([0; 0; 0]);       % ”глы Ёйлера(крен,тангаж,рысканье)
 
     P.Weight = (P.mass + P.Wing.Mass) * g;
+    
+    P.InitCond = [P.vel(1:2); P.pos(1:2)];
+    %% ode45 option struct
+    P.Options = odeset( 'RelTol',     1e-6,...
+                        'AbsTol',     1e-6,...
+                        'Events',     @EventFunction,...
+                        'Vectorized', true,...
+                        'MaxStep',    0.1);    
+          %NOTE: We should not need to set MaxStep, but it seems that the
+          %event detection in ode45 misses some events when it takes large
+          %time steps, if the system dynamics are simple, as is the case
+          %here, especially when there is negligable drag.
 end
 

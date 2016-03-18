@@ -1,9 +1,14 @@
-function [ Obj ] = Model( ~, Obj, Env )
-    Y = Obj.Wing.Cy * Env.Wind.Pressure * P.Wing.S;
-    X = Obj.Wing.Cx * Env.Wind.Pressure * P.Wing.S;
+function r = Model( ~, state, P )
+    vel = state(1:2);
+    pos = state(3:4);
+    
+    Y = P.Wing.Cy * P.Env.Wind.Pressure * P.Wing.S;
+    X = P.Wing.Cx * P.Env.Wind.Pressure * P.Wing.S;
 
-    Obj.pos(1) = Obj.vel(1);
-    Obj.pos(2) = Obj.vel(2);
-    Obj.vel(1) = (Obj.Thrust - X)/Obj.Wing.Mass;
-    Obj.vel(2) = (Y - Obj.Weight)/Obj.Wing.Mass;
+    pos(1) = vel(1);
+    pos(2) = vel(2);
+    vel(1) = (P.Thrust - X)/P.mass;
+    vel(2) = (Y - P.Weight)/P.mass;
+    
+    r = [vel(1); vel(2); pos(1); pos(2)];
 end
