@@ -1,9 +1,9 @@
 function P = SetUp()
 %% Окружение
-    ro = 1.225;                         % Плотность воздуха  
+    P.ro = 1.225;                         % Плотность воздуха  
     g  = 9.81;                          % Ускорение свободного падения
     P.Env.Wind.Speed    = 8.0;              % Скорость набегающего потока
-    P.Env.Wind.Pressure = (ro*P.Env.Wind.Speed^2)/2;
+    P.Env.Wind.Pressure = (P.ro*P.Env.Wind.Speed^2)/2;
 
 %% Аппарат
     P.mass = 1;                         % масса груза, кг
@@ -12,14 +12,14 @@ function P = SetUp()
     P.hight = 0.1;                      % Высота, м
     P.depth = 0.1;                      % Длина,  м
 
-    P.attack  = 2;                      % Угол атаки, град
+    P.attack  = 20;                     % Угол атаки, град
 
 % Двигатель
     P.ThrustVector = [1; 0; 0];         % вектор направления тяги
     P.Thrust  = 4.45;                   % тяга двигателя
 
 % Тип и аэродинамика крыла
-    P.FoilName = @model908_b0;
+    P.FoilName = @ClarkYH;
     [P.Wing.Cy, P.Wing.Cx, ... 
      P.Wing.CmA, P.Wing.Cd] = P.FoilName(P.attack); % АД профиля
 
@@ -34,7 +34,7 @@ function P = SetUp()
 
 % Начальные условия
     P.CoordSysName = 'Стартовая СК';
-    P.pos   = [0; 0; 0];                % Положение, м
+    P.pos   = [0; 5; 0];                % Положение, м
     P.vel   = [0; 0; 0];                % Скорость, м
     P.omega = deg2rad([0; 0; 0]);       % Угловая скорость
     P.ean   = deg2rad([0; 0; 0]);       % Углы Эйлера(крен,тангаж,рысканье)

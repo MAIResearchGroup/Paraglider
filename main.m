@@ -9,6 +9,7 @@ addpath(PROFILES, INCLUDES);
     dynFunc = @(t,X)Model(t,X,P);
                         
 %%  Интегрирование
-    TimeSpan = 0:1;
-    res = ode45(dynFunc, TimeSpan, P.InitCond);
+    TimeSpan = 0:60;
+    res = ode45(dynFunc, TimeSpan, P.InitCond, P.Options);
     plot(res.y(3,:), res.y(4,:))
+    grid on
