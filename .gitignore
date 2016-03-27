@@ -2,3 +2,7 @@
 
 # Cache/options directory
 *.asv
+
+# Hide source
+EventFunction.m
+SetUp.m
