@@ -9,9 +9,13 @@ addpath(PROFILES, INCLUDES);
     dynFunc = @(t,X)Model(t,X,P,E);
                         
 %%  Интегрирование
-    TimeSpan = 0:60;
+    TimeSpan = 0:360;
     res = ode45(dynFunc, TimeSpan, P.InitCond, P.Options);
-    plot(res.y(3,:), res.y(4,:))
-    m = max(axis);
-    axis([0 m 0 m])
-    grid on
+    
+%%  Вывод результатов
+    figure(1)
+    PlotMapXY(res.y(3,:), res.y(4,:))
+    figure(2)
+    PlotRes(res.x(1,:), res.y(3,:), res.y(4,:), res.y(1,:), res.y(2,:))
+    figure(3)
+    PlotResAng(res.x(1,:), res.y(5,:), res.y(6,:))
