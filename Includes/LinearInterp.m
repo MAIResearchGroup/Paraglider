@@ -1,25 +1,24 @@
 function [ res ] = LinearInterp( arguments, functionValues, value )
-    len = numel(arguments);
+    first = 1;
+    last = numel(arguments);
 
     if value <= arguments(1)
         res = functionValues(1);
         return
     end
     
-    if value >= arguments(end)
+    if value >= arguments(last)
         res = functionValues(end);
         return
     end
    
-    koeff(1) = 1;
-    koeff(2) = 1;
-
-    for i = 2:len
-        if value >= arguments(i-1) && value <= arguments(i)
-            koeff(1) = (functionValues(i) - functionValues(i-1)) / (arguments(i) - arguments(i-1));
-            koeff(2) = functionValues(i-1) - koeff(1)*arguments(i-1);
-            break
+    while abs(first - last) ~= 1
+        mid = round((first + last)/2);
+        if (arguments(first) - value)*(arguments(mid) - value) <= 0
+            last = mid;
+        else
+            first = mid;
         end
     end
-    res = koeff(2) + koeff(1)*value;
+    res = (functionValues(first) - ((functionValues(last) - functionValues(first)) / (arguments(last) - arguments(first)))*arguments(first)) + ((functionValues(last) - functionValues(first)) / (arguments(last) - arguments(first)))*value;
 end

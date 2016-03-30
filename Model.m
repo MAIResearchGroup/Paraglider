@@ -10,8 +10,8 @@ function r = Model( t, state, P, Env )
      P.Wing.Cd] = feval(P.Wing.FoilName,rad2deg(attack));
     
     Vel = sqrt(vel(1)^2 + vel(2)^2);
-    if t > 5
-        P.Thrust = 0.1 * P.Thrust;
+    if t > 10
+        P.Thrust = 0.3 * P.Thrust;
     end
     
     Y = P.Wing.Cy * Env.AirDen*(vel(1)^2)/2 * P.Wing.S;
@@ -24,7 +24,7 @@ function r = Model( t, state, P, Env )
         pos(2) = vel(2);
     end
     dV = (P.Thrust * [cos(theta); sin(theta)] + [-X; Y-P.Weight])/P.SMass;
-    dtheta  = (P.Thrust *(sin(attack)) + Y - P.Weight *cos(theta))/(P.Weight * Vel/Env.g);
+    dtheta  = (P.Thrust *(sin(attack)) + Y - P.Weight *cos(theta))/(P.SMass * Vel);
     dattack = 0;
     
     r = [dV(1); dV(2); pos(1); pos(2); dtheta; dattack];
