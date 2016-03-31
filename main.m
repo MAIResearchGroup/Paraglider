@@ -4,8 +4,15 @@ PROFILES = strcat(pwd, '\Profiles');
 INCLUDES = strcat(pwd, '\Includes');
 addpath(PROFILES, INCLUDES);
 
+verify = true;
+
+cbsaf;
+if verify
+    verification;
+end
+
 %%  Исходные данные    
-    [E, P] = SetUp();    % P значит Paraglider
+    [E, P] = SetUp();    
     dynFunc = @(t,X)Model(t,X,P,E);
                         
 %%  Интегрирование
@@ -18,4 +25,4 @@ addpath(PROFILES, INCLUDES);
     figure(2)
     PlotRes(res.x(1,:), res.y(3,:), res.y(4,:), res.y(1,:), res.y(2,:))
     figure(3)
-    PlotResAng(res.x(1,:), res.y(5,:), res.y(6,:))
+    PlotResAng(res.x(1,:), rad2deg( res.y(5,:) ), rad2deg( res.y(6,:) ))

@@ -5,7 +5,7 @@ function [ ModelConf ] = Config()
     Paraglider.mass          = 2;         % ћасса полезного груза, кг
     Paraglider.Payload = [0.1; 0.1; 0.1]; % √абариты полезного груза, м
 
-    Paraglider.Thrust        = 17;        % т€га двигател€, H
+    Paraglider.Thrust        = 11;        % т€га двигател€, H
     Paraglider.Wing.FoilName = @ClarkYH;  % профиль из папки Profiles
     
     Paraglider.StartAltitude = 0;         % высота над уровнем «емли, м

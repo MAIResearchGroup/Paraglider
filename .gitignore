@@ -4,5 +4,4 @@
 *.asv
 
 # Hide source
-EventFunction.m
-SetUp.m
+/.sources
