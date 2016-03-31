@@ -11,13 +11,12 @@ function r = Model( t, state, P, Env )
     
     Vel = sqrt(vel(1)^2 + vel(2)^2);
     if t > 10
-        P.Thrust = 0.3 * P.Thrust;
+        P.Thrust = 0 * P.Thrust;
     end
     
     Y = P.Wing.Cy * Env.AirDen*(vel(1)^2)/2 * P.Wing.S;
     X = P.Wing.Cx * Env.AirDen*(vel(1)^2)/2 * P.Wing.S;
-
-
+    
     dV = (P.Thrust * [cos(theta); sin(theta)] + [-X; Y-P.Weight])/P.SMass;
     if (pos(2) <= 0) && (dV(2) < 0)
         dV(2) = 0;
@@ -26,5 +25,5 @@ function r = Model( t, state, P, Env )
     dtheta  = (P.Thrust *(sin(attack)) + Y - P.Weight *cos(theta))/(P.SMass * Vel);
     dattack = 0;
     
-    r = [dV; pos; dtheta; dattack];
+    r = [dV; pos; rad2deg(dtheta); rad2deg(dattack)];
 end
