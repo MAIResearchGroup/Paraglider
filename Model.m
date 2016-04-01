@@ -1,8 +1,8 @@
-function r = Model( t, state, P, Env )
-    vel = state(1:2);
-    pos = state(3:4);
-    theta  = state(5);
-    attack = state(6);
+function r = Model( ~, state, P, Env )
+    vel     = state(1:2);
+    pos     = state(3:4);
+    theta   = state(5);
+    attack  = state(6);
     
     [P.Wing.Cy, ...
      P.Wing.Cx, ... 
