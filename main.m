@@ -1,14 +1,14 @@
 clc; close all; clear;
 
-verify      = false;
-useCBSAF    = false;
+verify      = true;
+useCBSAF    = true;
 preload;
 %%  Исходные данные    
     [E, P] = SetUp();    
     dynFunc = @(t,X)Model(t,X,P,E);
                         
 %%  Интегрирование
-    TimeSpan = 0:360;
+    TimeSpan = 0:120;
     res = ode45(dynFunc, TimeSpan, P.InitCond, P.Options);
     
 %%  Вывод результатов

@@ -1,9 +1,12 @@
-function [ Output, FeedBack, PID ] = PIDCycle( dt, desired, FeedBack, PID )
+function [ Output, FeedBack, PID ] = PIDCycle( time, desired, FeedBack, PID )
+    dt           = time - PID.prevTime;
+    PID.prevTime = time;
+
     feed = 1;
 
-    PrevProp = PID.Prop;
-    PrevDer  = PID.Der;
-    PrevInt  = PID.I;
+    PrevProp  = PID.Prop;
+    PrevDer   = PID.Der;
+    PrevInt   = PID.I;
     PrevError = PID.Error;
     
     PID.Error = desired - FeedBack;               % error entering the PID controller
@@ -17,7 +20,7 @@ function [ Output, FeedBack, PID ] = PIDCycle( dt, desired, FeedBack, PID )
     PID.value  = PID.Kp*PrevProp + PID.Ki*PID.I+ PID.Kd*PrevDer;  % the three PID terms
 
     PrevState = PID.state;
-    PID.state(1) = PrevPIDvalue + PID.value;            % sum PID term to calculate the first integration
+    PID.state(1) = PrevPIDvalue + PID.value;      % sum PID term to calculate the first integration
     state2 = (PID.state(1) + PrevState(1))*dt/2;  % output after the first integrator
     PID.state(2) = PID.state(2) + state2;         % sum output of first integrator to calculate the second integration
     Output = (PID.state(2) + PrevState(2))*dt/2;  % output of the system after the second integrator
