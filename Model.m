@@ -10,6 +10,10 @@ function r = Model( t, state, P, Env )
      P.Wing.CmA,... 
      P.Wing.Cd] = feval(P.Wing.FoilName,rad2deg(attack));
     
+    [Env.AirTemperature,...
+     Env.AirPressure,...
+     Env.AirDensity] = (StdEarthAtmo(pos(2)));
+ 
     Vel = sqrt(vel(1)^2 + vel(2)^2);
     
     need = 300;
