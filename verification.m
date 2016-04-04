@@ -1,4 +1,4 @@
-function verification
+function verification(visualize)
     PATH = strcat(pwd, '\verification');
     addpath( PATH )
     

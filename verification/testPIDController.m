@@ -1,11 +1,11 @@
 Eps = 1e-4;
 
-Time = 1;
+Time = 20;
 step = 0.01;
 
 need = 10;
 
-Kp = 1; Ki = 1.5; Kd = 0.5;
+Kp = 3; Ki = 1.5; Kd = 0.5;
 
 ourPID.Kp = Kp; ourPID.Ki = Ki; ourPID.Kd = Kd;
 ourPID.prevTime = 0;
@@ -47,17 +47,35 @@ ourPID.Error = 0; ourPID.value = 0; ourPID.state = [0; 0];
         FeedBack(i+1) = state2(i+1)*feed1 + Output(i+1)*feed2;
     end
 
-%% Переходим к тестируемой функции
+%% Переходим к тестируемой функции (шаг постоянен)
 ourFeedBack = 0;
 steps = Time/step;
 r = zeros(1, steps);
+out = zeros(1, steps);
+fb = zeros(1, steps);
 for i = 1:steps
     [ ourOut, ourFeedBack, ourPID ] = PIDCycle( i*step, need, ourFeedBack, ourPID );
+    out(i) = ourOut;
+    fb(i) = ourFeedBack;
     tmp1 = round( ourOut/Eps )     *Eps;
     tmp2 = round( Output(i+1)/Eps )*Eps;
     if tmp1 ~= tmp2 && i >= 2
         ourOut
         Output(i+1)
-        error('WTF')
+        error('Значения различаются!')
     end
+end
+
+if visualize
+    T = 0:step:(Time-step);
+    figure()
+    plot(T, Output(2:length(Output)), ...
+         T, out)
+    title('Unit test: Сравнение сходимости регуляторов')
+    legend('Постоянный (PIDController)','Переменный шаг(PIDCycle)')
+    grid on
+    
+    figure()
+    plot(T, fb)
+    grid on
 end

@@ -13,5 +13,5 @@ if useCBSAF
 end
 
 if verify
-    verification;
+    verification(visualize);
 end
